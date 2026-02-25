@@ -32,7 +32,7 @@ resource "azurerm_windows_virtual_machine" "mgmt" {
 
   os_disk {
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "StandardSSD_LRS"
     disk_size_gb         = var.os_disk_size  # 2TB
   }
 
@@ -60,7 +60,7 @@ resource "azurerm_windows_virtual_machine" "client_vms" {
 
   os_disk {
     caching              = "ReadWrite"
-    storage_account_type = "Premium_LRS"
+    storage_account_type = "StandardSSD_LRS"
     disk_size_gb         = 128  # 128GB (Windows 11 기본)
   }
 
