@@ -1,0 +1,9 @@
+variable "prefix"        { type = string }
+variable "location"      { type = string }
+variable "rg_name"       { type = string }
+variable "subnet_id"     { type = string }
+variable "vm_size"       { type = string }
+variable "os_disk_size"  { type = number }
+variable "image_id"      { type = string }
+variable "fslogix_share" { type = string }
+variable "domain"        { type = string }
