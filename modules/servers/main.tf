@@ -30,6 +30,12 @@ resource "azurerm_windows_virtual_machine" "mgmt" {
   admin_password        = var.admin_pass
   network_interface_ids = [azurerm_network_interface.nic["mgmt"].id]
 
+  # ✅ patch_mode 추가
+  patch_mode                                             = "AutomaticByPlatform"
+  provision_vm_agent                                     = true
+  enable_automatic_updates                               = true
+
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "StandardSSD_LRS"
@@ -39,7 +45,7 @@ resource "azurerm_windows_virtual_machine" "mgmt" {
   source_image_reference {
     publisher = "MicrosoftWindowsServer"
     offer     = "WindowsServer"
-    sku       = "2025-datacenter-azure-edition-core-smalldisk"  # 최신 2025 Core
+    sku       = "2022-datacenter-azure-edition"   # ✅ Windows Server 2022 (mgmt용)
     version   = "latest"
   }
 
@@ -57,7 +63,12 @@ resource "azurerm_windows_virtual_machine" "client_vms" {
   admin_username        = var.admin_user
   admin_password        = var.admin_pass
   network_interface_ids = [azurerm_network_interface.nic[each.key].id]
-
+  
+  # ✅ patch_mode 추가
+  patch_mode               = "AutomaticByOS"   # Win11 Enterprise는 AutomaticByOS
+  provision_vm_agent       = true
+  enable_automatic_updates = true
+  
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "StandardSSD_LRS"
@@ -67,20 +78,20 @@ resource "azurerm_windows_virtual_machine" "client_vms" {
   source_image_reference {
     publisher = "MicrosoftWindowsDesktop"
     offer     = "windows-11"
-    sku       = "win11-24h2-ent-ltsc-azure-cvm-avd-msvm"  # LTSC 2024 AVD 최적화
+    sku       = "win11-24h2-ent"   # ✅ 올바른 SKU (존재하는 이미지)
     version   = "latest"
   }
 
   license_type = "Windows_Client"
   
   # 이미지 서버용: 이미지 커스터마이징용 Extension 추가 가능
-  provisioner "remote-exec" {
-    inline = ["powershell.exe -Command 'Write-Host \"Image VM Ready\"'"]
-    connection {
-      type     = "winrm"
-      user     = var.admin_user
-      password = var.admin_pass
-      host     = azurerm_network_interface.nic[each.key].ip_configuration[0].private_ip_address
-    }
-  }
+  # provisioner "remote-exec" {
+  #   inline = ["powershell.exe -Command 'Write-Host \"Image VM Ready\"'"]
+  #   connection {
+  #     type     = "winrm"
+  #     user     = var.admin_user
+  #     password = var.admin_pass
+  #     host     = azurerm_network_interface.nic[each.key].ip_configuration[0].private_ip_address
+  #   }
+  # }
 }
