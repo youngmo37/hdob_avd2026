@@ -64,6 +64,10 @@ APP_GROUP_ID=$(az desktopvirtualization applicationgroup show \
   --resource-group "hdob-spoke-rg" \
   --query "id" -o tsv)
 
+# Git Bash에서 경로 변환 비활성화
+export MSYS_NO_PATHCONV=1
+
+# role assign
 az role assignment create \
   --assignee "$USER_OID" \
   --role "Desktop Virtualization User" \
