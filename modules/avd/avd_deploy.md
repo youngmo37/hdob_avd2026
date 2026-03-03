@@ -4,7 +4,7 @@
 az login
 
 # 구독 설정
-az account set --subscription "Mysubscripion No"
+az account set --subscription "Replace Mysubscripion No"
 
 # Host Pool 등록 토큰 발급 (2시간 유효)
 az desktopvirtualization hostpool update \
