@@ -6,14 +6,14 @@ resource "azurerm_virtual_network" "spoke" {
 }
 
 resource "azurerm_subnet" "avd" {
-  name                 = "avd-subnet"
+  name                 = "avd-pool-subnet"
   resource_group_name  = var.rg_name
   virtual_network_name = azurerm_virtual_network.spoke.name
   address_prefixes     = ["10.175.1.0/25"]
 }
 
 resource "azurerm_subnet" "dedicated" {
-  name                 = "dedicated-subnet"
+  name                 = "avd-person-subnet"
   resource_group_name  = var.rg_name
   virtual_network_name = azurerm_virtual_network.spoke.name
   address_prefixes     = ["10.175.1.128/25"]

@@ -42,7 +42,7 @@ module "spoke_network" {
   rg_name     = azurerm_resource_group.spoke_rg.name
   vnet_cidr   = var.spoke_cidr
   hub_vnet_id = module.hub_network.hub_vnet_id
-  fw_ip       = module.hub_network.firewall_ip
+  # fw_ip       = module.hub_network.firewall_ip
   depends_on  = [azurerm_resource_group.spoke_rg, module.hub_network]
 }
 

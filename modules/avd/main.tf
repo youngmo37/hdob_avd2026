@@ -44,3 +44,6 @@ resource "azurerm_private_dns_zone" "avd" {
 
 # Private Endpoint 예시 (관리서버에서 AVD 제어용)
 # 실제 subresource_names는 서비스에 따라 조정 필요 [web:29]
+
+# Terraform으로 토큰 발급:
+

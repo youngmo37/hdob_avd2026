@@ -6,9 +6,9 @@ APP_GROUP="hdob-dag"
 
 # 할당할 사용자 목록
 USERS=(
-  "user1@yourdomain.com"
-  "user2@yourdomain.com"
-  "user3@yourdomain.com"
+  "user01@imyoungmogmail.onmicrosoft.com"
+  "user02@imyoungmogmail.onmicrosoft.com"
+  "user03@imyoungmogmail.onmicrosoft.com"
 )
 
 APP_GROUP_ID=$(az desktopvirtualization applicationgroup show \
